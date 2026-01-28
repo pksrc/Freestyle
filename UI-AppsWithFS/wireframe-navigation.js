@@ -109,12 +109,89 @@ const WireframeNav = {
     // Retrieve stored selection
     getSelection: function(key) {
         return sessionStorage.getItem(key);
+    },
+
+    // Tooltip system
+    initTooltips: function() {
+        // Create tooltip container if it doesn't exist
+        if (!document.getElementById('tooltip-container')) {
+            const tooltipContainer = document.createElement('div');
+            tooltipContainer.id = 'tooltip-container';
+            tooltipContainer.style.cssText = `
+                position: fixed;
+                background: #333;
+                color: #fff;
+                padding: 8px 12px;
+                border-radius: 4px;
+                font-size: 13px;
+                max-width: 300px;
+                z-index: 10000;
+                pointer-events: none;
+                opacity: 0;
+                transition: opacity 0.2s;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+                line-height: 1.4;
+            `;
+            document.body.appendChild(tooltipContainer);
+        }
+
+        const tooltipContainer = document.getElementById('tooltip-container');
+        const self = this; // Store reference to WireframeNav context
+
+        // Add tooltip to all elements with data-tooltip attribute
+        document.querySelectorAll('[data-tooltip]').forEach(element => {
+            element.addEventListener('mouseenter', function(e) {
+                const tooltipText = this.getAttribute('data-tooltip');
+                if (tooltipText && !this.disabled) {
+                    tooltipContainer.textContent = tooltipText;
+                    tooltipContainer.style.opacity = '1';
+                    self.positionTooltip(e, tooltipContainer);
+                }
+            });
+
+            element.addEventListener('mousemove', function(e) {
+                if (tooltipContainer.style.opacity === '1') {
+                    self.positionTooltip(e, tooltipContainer);
+                }
+            });
+
+            element.addEventListener('mouseleave', function() {
+                tooltipContainer.style.opacity = '0';
+            });
+        });
+    },
+
+    // Position tooltip near cursor
+    positionTooltip: function(event, tooltip) {
+        const offset = 15;
+        let x = event.clientX + offset;
+        let y = event.clientY + offset;
+
+        // Prevent tooltip from going off-screen
+        const tooltipRect = tooltip.getBoundingClientRect();
+        const viewportWidth = window.innerWidth;
+        const viewportHeight = window.innerHeight;
+
+        if (x + tooltipRect.width > viewportWidth) {
+            x = event.clientX - tooltipRect.width - offset;
+        }
+
+        if (y + tooltipRect.height > viewportHeight) {
+            y = event.clientY - tooltipRect.height - offset;
+        }
+
+        tooltip.style.left = x + 'px';
+        tooltip.style.top = y + 'px';
     }
 };
 
 // Initialize when DOM is ready
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => WireframeNav.init());
+    document.addEventListener('DOMContentLoaded', () => {
+        WireframeNav.init();
+        WireframeNav.initTooltips();
+    });
 } else {
     WireframeNav.init();
+    WireframeNav.initTooltips();
 }

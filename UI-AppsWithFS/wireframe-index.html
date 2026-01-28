@@ -115,7 +115,7 @@
             <div class="toolbar">
                 <div class="toolbar-left">
                     <span class="filter-label">Filters</span>
-                    <button class="filter-btn" id="add-version-btn">ADD ▼</button>
+                    <button class="filter-btn" id="add-version-btn" data-tooltip="Click here to simulate adding a new version of the app" style="background-color:#6643e6">ADD ▼</button>
                     <button class="filter-btn">EXPORT ▼</button>
                 </div>
                 <div class="toolbar-right">
@@ -128,9 +128,9 @@
 
             <!-- Action Buttons -->
             <div class="action-buttons">
-                <button class="action-btn primary">📋 Assign</button>
-                <button class="action-btn primary" id="manage-workflow-btn" disabled>🔄 Publish to Workflows</button>
-                <button class="action-btn danger">❌ Delete</button>
+                <button class="action-btn primary" data-tooltip="Assign this app to devices or user groups">📋 Assign</button>
+                <button class="action-btn primary" id="manage-workflow-btn" data-tooltip="Select an App version first; Update workflows that use this app version" disabled>🔄 Publish to Workflows</button>
+                <button class="action-btn danger" data-tooltip="Remove this app version from UEM">❌ Delete</button>
             </div>
 
             <!-- Table -->
@@ -335,6 +335,7 @@
         </main>
     </div>
 
+    <script src="wireframe-navigation.js"></script>
     <script>
         function toggleVersions(parentRow) {
             const expandIcon = parentRow.querySelector('.expand-icon');
