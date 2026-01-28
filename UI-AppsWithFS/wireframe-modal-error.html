@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publish New Version - Error</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="wireframe-styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <div class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                    <rect width="24" height="24" fill="#7C4DFF" rx="4"/>
+                </svg>
+                <span>UEM</span>
+            </div>
+            <select class="header-dropdown">
+                <option>Product Engineering</option>
+            </select>
+        </div>
+        <div class="header-right">
+            <button class="header-btn">Add</button>
+            <button class="icon-btn">🔍</button>
+            <button class="icon-btn">🔔</button>
+            <button class="icon-btn">⭐</button>
+            <button class="icon-btn">❓</button>
+            <div class="user-menu">pk</div>
+            <button class="icon-btn">⋮⋮⋮</button>
+        </div>
+    </header>
+
+    <!-- Modal Overlay -->
+    <div class="modal-overlay">
+        <div class="modal-dialog">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <div>
+                    <h2 class="modal-title">Update Failed</h2>
+                </div>
+                <button class="modal-close" data-action="close" aria-label="Close">×</button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <div class="error-content">
+                    <div class="error-header">
+                        <div class="error-icon">✕</div>
+                        <div class="error-info">
+                            <h3 class="error-title">Unable to Update Workflows</h3>
+                            <p class="error-message">
+                                An error occurred while attempting to deploy the app update to workflow-assigned devices. 
+                                Some workflows could not be processed.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="error-details">
+                        <div class="error-details-title">Affected Workflows (3 of 7 failed):</div>
+                        <ul class="error-details-list">
+                            <li>
+                                <strong>Desktop Onboarding - Standard (v3.2)</strong><br>
+                                <span style="color: #dc3545; font-size: 12px;">Error: Insufficient permissions to update workflow</span>
+                            </li>
+                            <li>
+                                <strong>Security Compliance Update (v1.2)</strong><br>
+                                <span style="color: #dc3545; font-size: 12px;">Error: Workflow is currently being edited by another admin</span>
+                            </li>
+                            <li>
+                                <strong>Engineering Workstation Config (v4.0)</strong><br>
+                                <span style="color: #dc3545; font-size: 12px;">Error: Network timeout while processing request</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="warning-banner" style="margin-top: 20px;">
+                        <span class="warning-banner-icon">⚠️</span>
+                        <div class="warning-banner-content">
+                            <div class="warning-banner-title">Partially Completed</div>
+                            <div class="warning-banner-message">
+                                4 workflows were successfully updated. The remaining workflows need to be addressed manually 
+                                or you can retry the operation.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-action="close">Cancel & Review Manually</button>
+                <button class="btn btn-primary" data-navigate="wireframe-modal-step3.html">Retry Failed Updates</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="wireframe-navigation.js"></script>
+</body>
+</html>

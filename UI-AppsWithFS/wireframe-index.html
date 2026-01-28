@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UEM - Native Apps</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <div class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                    <rect width="24" height="24" fill="#7C4DFF" rx="4"/>
+                </svg>
+                <span>UEM</span>
+            </div>
+            <select class="header-dropdown">
+                <option>Product Engineering</option>
+            </select>
+        </div>
+        <div class="header-right">
+            <button class="header-btn">Add</button>
+            <button class="icon-btn">🔍</button>
+            <button class="icon-btn">🔔</button>
+            <button class="icon-btn">⭐</button>
+            <button class="icon-btn">❓</button>
+            <div class="user-menu">pk</div>
+            <button class="icon-btn">⋮⋮⋮</button>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <nav class="nav-section">
+                <div class="nav-header">Apps</div>
+                <a href="#" class="nav-item active">Native Apps</a>
+                <a href="#" class="nav-item">Web Links</a>
+                <a href="#" class="nav-item">App Groups</a>
+            </nav>
+
+            <nav class="nav-section">
+                <div class="nav-header">Profiles & Baselines</div>
+                <a href="#" class="nav-item">Profiles</a>
+                <a href="#" class="nav-item">Baselines</a>
+                <a href="#" class="nav-item">SDK Profiles</a>
+                <a href="#" class="nav-item">Profile Resources</a>
+                <a href="#" class="nav-item">Installation Schedule</a>
+                <a href="#" class="nav-item">Profile Batch Status</a>
+            </nav>
+
+            <nav class="nav-section">
+                <div class="nav-header">Certificates</div>
+                <a href="#" class="nav-item">Certificates</a>
+                <a href="#" class="nav-item">Certificate Authorities</a>
+            </nav>
+
+            <nav class="nav-section">
+                <div class="nav-header">Scripting</div>
+                <a href="#" class="nav-item">Scripts</a>
+                <a href="#" class="nav-item">Sensors</a>
+            </nav>
+
+            <nav class="nav-section">
+                <div class="nav-header">Workspace ONE Content</div>
+                <a href="#" class="nav-item">Content Dashboard</a>
+                <a href="#" class="nav-item">Content</a>
+                <a href="#" class="nav-item">Admin Repositories</a>
+                <a href="#" class="nav-item">User Repositories</a>
+                <a href="#" class="nav-item">Manual Templates</a>
+                <a href="#" class="nav-item">Automatic Templates</a>
+                <a href="#" class="nav-item">Content Categories</a>
+                <a href="#" class="nav-item">Featured Content</a>
+                <a href="#" class="nav-item">Content Batch Status</a>
+            </nav>
+
+            <nav class="nav-section">
+                <div class="nav-header">Books</div>
+                <a href="#" class="nav-item">Books</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                <span>Resources</span> > <span>Apps</span>
+            </div>
+
+            <!-- Page Title -->
+            <div class="page-header">
+                <h1>List View</h1>
+                <div class="page-actions">
+                    <button class="icon-btn">🏠</button>
+                    <button class="icon-btn">⭐</button>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab active">Internal</button>
+                <button class="tab">Public</button>
+                <button class="tab">Purchased</button>
+            </div>
+
+            <!-- Alert Banner -->
+            <div class="alert-banner">
+                <span class="alert-icon">ℹ️</span>
+                <span>Resources cannot be added outside of a Customer/Partner OG Hierarchy.</span>
+            </div>
+
+            <!-- Filters and Actions -->
+            <div class="toolbar">
+                <div class="toolbar-left">
+                    <span class="filter-label">Filters</span>
+                    <button class="filter-btn" id="add-version-btn">ADD ▼</button>
+                    <button class="filter-btn">EXPORT ▼</button>
+                </div>
+                <div class="toolbar-right">
+                    <button class="filter-btn">LAYOUT ▼</button>
+                    <button class="icon-btn">🔄</button>
+                    <button class="filter-btn">EXPORT</button>
+                    <input type="text" class="search-input" placeholder="Search List">
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="action-btn primary">📋 Assign</button>
+                <button class="action-btn primary" id="manage-workflow-btn" disabled>🔄 Publish to Workflows</button>
+                <button class="action-btn danger">❌ Delete</button>
+            </div>
+
+            <!-- Table -->
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox"></th>
+                            <th>Icon</th>
+                            <th>Name</th>
+                            <th>UEM Version</th>
+                            <th>Managed By</th>
+                            <th>App Version</th>
+                            <th>Platform/OS/Model</th>
+                            <th>Updates Available</th>
+                            <th>Rating</th>
+                            <th>Categories</th>
+                            <th>Change Log</th>
+                            <th>Platform</th>
+                            <th>Min Operating System</th>
+                            <th>Enhancement Mode</th>
+                            <th>Renew</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 7-Zip App Group -->
+                        <tr class="app-parent" onclick="toggleVersions(this)">
+                            <td><input type="checkbox" onclick="event.stopPropagation()"></td>
+                            <td><div class="app-icon windows"></div></td>
+                            <td>
+                                <span class="expand-icon">▼</span>
+                                <a href="#" class="app-name" onclick="event.stopPropagation()">7-Zip</a>
+                                <span class="version-count">(4 versions)</span>
+                            </td>
+                            <td colspan="4">Windows Compression Tool</td>
+                            <td colspan="8">No updates</td>
+                        </tr>
+                        <!-- Version 23.01 -->
+                        <tr class="version-row" style="display: table-row;" data-version-type="latest" data-version-number="23.01" data-app-name="7-Zip">
+                            <td><input type="checkbox"></td>
+                            <td></td>
+                            <td class="version-cell">
+                                <span class="version-indent">└─</span>
+                                <a href="#" class="app-name">7-Zip x64</a>
+                            </td>
+                            <td><span>23.01</span></td>
+                            <td>dGmtmn</td>
+                            <td>23.01</td>
+                            <td>Windows/Windows 10.0.10240+/Desktop</td>
+                            <td></td>
+                            <td><div class="rating">★★★★★</div></td>
+                            <td>Utilities</td>
+                            <td></td>
+                            <td>Windows</td>
+                            <td>Windows 10.0.10240+</td>
+                            <td>None</td>
+                            <td>Not App</td>
+                        </tr>
+                        <!-- Version 22.01 -->
+                        <tr class="version-row" style="display: table-row;" data-version-type="specific" data-version-number="22.01" data-app-name="7-Zip">
+                            <td><input type="checkbox"></td>
+                            <td></td>
+                            <td class="version-cell">
+                                <span class="version-indent">└─</span>
+                                <a href="#" class="app-name">7-Zip x64</a>
+                            </td>
+                            <td>22.01</td>
+                            <td>dGmtmn</td>
+                            <td>22.01</td>
+                            <td>Windows/Windows 10.0.10240+/Desktop</td>
+                            <td></td>
+                            <td><div class="rating">★★★★★</div></td>
+                            <td>Utilities</td>
+                            <td></td>
+                            <td>Windows</td>
+                            <td>Windows 10.0.10240+</td>
+                            <td>None</td>
+                            <td>Not App</td>
+                        </tr>
+                        <!-- Version 21.07 -->
+                        <tr class="version-row" style="display: table-row;" data-version-type="specific" data-version-number="21.07" data-app-name="7-Zip">
+                            <td><input type="checkbox"></td>
+                            <td></td>
+                            <td class="version-cell">
+                                <span class="version-indent">└─</span>
+                                <a href="#" class="app-name">7-Zip x64</a>
+                            </td>
+                            <td>21.07</td>
+                            <td>ESCTest</td>
+                            <td>21.07</td>
+                            <td>Windows/Windows 10.0.10240+/Desktop</td>
+                            <td></td>
+                            <td><div class="rating">★★★★☆</div></td>
+                            <td>Utilities</td>
+                            <td></td>
+                            <td>Windows</td>
+                            <td>Windows 10.0.10240+</td>
+                            <td>None</td>
+                            <td>Not App</td>
+                        </tr>
+                        <!-- Version 19.00 -->
+                        <tr class="version-row" style="display: table-row;" data-version-type="specific" data-version-number="19.00" data-app-name="7-Zip">
+                            <td><input type="checkbox"></td>
+                            <td></td>
+                            <td class="version-cell">
+                                <span class="version-indent">└─</span>
+                                <a href="#" class="app-name">7-Zip x64</a>
+                            </td>
+                            <td>19.00</td>
+                            <td>cb-ailey</td>
+                            <td>19.00</td>
+                            <td>Windows/Windows 10.0.10240+/Desktop</td>
+                            <td></td>
+                            <td><div class="rating">★★★★☆</div></td>
+                            <td>Utilities</td>
+                            <td></td>
+                            <td>Windows</td>
+                            <td>Windows 10.0.10240+</td>
+                            <td>None</td>
+                            <td>Not App</td>
+                        </tr>
+
+                        <!-- 1Password App Group -->
+                        <tr class="app-parent" onclick="toggleVersions(this)">
+                            <td><input type="checkbox" onclick="event.stopPropagation()"></td>
+                            <td><div class="app-icon windows"></div></td>
+                            <td>
+                                <span class="expand-icon">▼</span>
+                                <a href="#" class="app-name" onclick="event.stopPropagation()">1Password</a>
+                                <span class="version-count">(2 versions)</span>
+                            </td>
+                            <td colspan="4">Password Manager</td>
+                            <td colspan="8">No updates</td>
+                        </tr>
+                        <tr class="version-row" style="display: table-row;" data-version-type="latest" data-version-number="8.10.45" data-app-name="1Password">
+                            <td><input type="checkbox"></td>
+                            <td></td>
+                            <td class="version-cell">
+                                <span class="version-indent">└─</span>
+                                <a href="#" class="app-name">1Password</a>
+                            </td>
+                            <td><span>8.10.45</span></td>
+                            <td>dGmtmn</td>
+                            <td>8.10.45</td>
+                            <td>Windows/Windows 10.0.10240+/Desktop</td>
+                            <td></td>
+                            <td><div class="rating">★★★★★</div></td>
+                            <td>Security</td>
+                            <td></td>
+                            <td>Windows</td>
+                            <td>Windows 10.0.10240+</td>
+                            <td>None</td>
+                            <td>Not App</td>
+                        </tr>
+                        <tr class="version-row" style="display: table-row;" data-version-type="specific" data-version-number="8.9.12" data-app-name="1Password">
+                            <td><input type="checkbox"></td>
+                            <td></td>
+                            <td class="version-cell">
+                                <span class="version-indent">└─</span>
+                                <a href="#" class="app-name">1Password</a>
+                            </td>
+                            <td>8.9.12</td>
+                            <td>dGmtmn</td>
+                            <td>8.9.12</td>
+                            <td>Windows/Windows 10.0.10240+/Desktop</td>
+                            <td></td>
+                            <td><div class="rating">★★★★★</div></td>
+                            <td>Security</td>
+                            <td></td>
+                            <td>Windows</td>
+                            <td>Windows 10.0.10240+</td>
+                            <td>None</td>
+                            <td>Not App</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <span class="pagination-info">Items 1 - 50 of 942</span>
+                <div class="pagination-controls">
+                    <button class="page-btn">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                    <button class="page-btn">4</button>
+                    <button class="page-btn">5</button>
+                    <button class="page-btn">6</button>
+                    <button class="page-btn">7</button>
+                    <button class="page-btn">></button>
+                    <button class="page-btn">>|</button>
+                </div>
+                <div class="page-size">
+                    <span>Page Size:</span>
+                    <select>
+                        <option>50</option>
+                        <option>100</option>
+                        <option>200</option>
+                    </select>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function toggleVersions(parentRow) {
+            const expandIcon = parentRow.querySelector('.expand-icon');
+            let currentRow = parentRow.nextElementSibling;
+            
+            // Toggle the expand/collapse icon
+            const isExpanded = expandIcon.textContent === '▼';
+            expandIcon.textContent = isExpanded ? '▶' : '▼';
+            
+            // Show/hide all version rows for this app
+            while (currentRow && currentRow.classList.contains('version-row')) {
+                currentRow.style.display = isExpanded ? 'none' : 'table-row';
+                currentRow = currentRow.nextElementSibling;
+            }
+        }
+
+        // Handle checkbox selection and enable/disable Publish to Workflows button
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if we're returning from a successful upload
+            const uploadComplete = sessionStorage.getItem('uploadComplete');
+            const uploadedApp = sessionStorage.getItem('selectedApp');
+            const uploadedVersion = sessionStorage.getItem('selectedVersion');
+            const uploadedVersionType = sessionStorage.getItem('selectedVersionType');
+            const uploadedBy = sessionStorage.getItem('uploadedBy') || 'pk';
+            
+            if (uploadComplete === 'true' && uploadedApp && uploadedVersion) {
+                console.log(`Upload complete! Adding ${uploadedApp} v${uploadedVersion} to the list`);
+                
+                // Find the app parent row
+                const appParentRows = document.querySelectorAll('.app-parent');
+                let targetAppRow = null;
+                
+                appParentRows.forEach(row => {
+                    const appNameElement = row.querySelector('.app-name');
+                    if (appNameElement && appNameElement.textContent.trim() === uploadedApp) {
+                        targetAppRow = row;
+                    }
+                });
+                
+                if (targetAppRow) {
+                    // Update version count
+                    const versionCountSpan = targetAppRow.querySelector('.version-count');
+                    const currentCount = parseInt(versionCountSpan.textContent.match(/\d+/)[0]);
+                    versionCountSpan.textContent = `(${currentCount + 1} versions)`;
+                    
+                    // Find the first version row after this app
+                    const firstVersionRow = targetAppRow.nextElementSibling;
+                    
+                    // If uploading as "latest", update all previous "latest" versions to "specific"
+                    if (uploadedVersionType === 'latest') {
+                        let currentVersionRow = firstVersionRow;
+                        while (currentVersionRow && currentVersionRow.classList.contains('version-row')) {
+                            const currentAppName = currentVersionRow.getAttribute('data-app-name');
+                            if (currentAppName === uploadedApp) {
+                                const currentVersionType = currentVersionRow.getAttribute('data-version-type');
+                                if (currentVersionType === 'latest') {
+                                    // Change from "latest" to "specific"
+                                    currentVersionRow.setAttribute('data-version-type', 'specific');
+                                    console.log(`Updated ${currentAppName} to 'specific' type`);
+                                }
+                            }
+                            currentVersionRow = currentVersionRow.nextElementSibling;
+                        }
+                    }
+                    
+                    // Create new version row
+                    const newVersionRow = document.createElement('tr');
+                    newVersionRow.className = 'version-row';
+                    newVersionRow.style.display = 'table-row';
+                    newVersionRow.setAttribute('data-version-type', uploadedVersionType);
+                    newVersionRow.setAttribute('data-version-number', uploadedVersion);
+                    newVersionRow.setAttribute('data-app-name', uploadedApp);
+                    
+                    const badgeHtml = uploadedVersionType === 'latest' 
+                        ? `<span>${uploadedVersion}</span>` 
+                        : `<span>${uploadedVersion}</span>`;
+                    
+                    newVersionRow.innerHTML = `
+                        <td><input type="checkbox"></td>
+                        <td></td>
+                        <td class="version-cell">
+                            <span class="version-indent">└─</span>
+                            <a href="#" class="app-name">${uploadedApp} x64</a>
+                        </td>
+                        <td>${badgeHtml}</td>
+                        <td>${uploadedBy}</td>
+                        <td>${uploadedVersion}</td>
+                        <td>Windows/Windows 10.0.10240+/Desktop</td>
+                        <td></td>
+                        <td><div class="rating">★★★★★</div></td>
+                        <td>Utilities</td>
+                        <td></td>
+                        <td>Windows</td>
+                        <td>Windows 10.0.10240+</td>
+                        <td>None</td>
+                        <td>Not App</td>
+                    `;
+                    
+                    // Insert the new row right after the app parent row
+                    targetAppRow.parentNode.insertBefore(newVersionRow, firstVersionRow);
+                    
+                    // Re-attach event listeners to the new checkbox
+                    const newCheckbox = newVersionRow.querySelector('input[type="checkbox"]');
+                    newCheckbox.addEventListener('change', updateManageWorkflowButton);
+                    
+                    console.log(`Successfully added ${uploadedApp} v${uploadedVersion} to the list`);
+                }
+                
+                // Clear the upload flag
+                sessionStorage.removeItem('uploadComplete');
+            }
+            
+            const manageWorkflowBtn = document.getElementById('manage-workflow-btn');
+            const versionCheckboxes = document.querySelectorAll('.version-row input[type="checkbox"]');
+            
+            // Add change listeners to all version row checkboxes
+            versionCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updateManageWorkflowButton);
+            });
+
+            function updateManageWorkflowButton() {
+                // Check if any version row checkbox is checked
+                const anyVersionSelected = Array.from(versionCheckboxes).some(cb => cb.checked);
+                manageWorkflowBtn.disabled = !anyVersionSelected;
+            }
+
+            // Navigate to workflow impact flow when button is clicked
+            manageWorkflowBtn.addEventListener('click', function() {
+                if (!this.disabled) {
+                    // Get the selected version info
+                    const selectedCheckbox = Array.from(versionCheckboxes).find(cb => cb.checked);
+                    if (selectedCheckbox) {
+                        const versionRow = selectedCheckbox.closest('.version-row');
+                        const appName = versionRow.getAttribute('data-app-name');
+                        const version = versionRow.getAttribute('data-version-number');
+                        const versionType = versionRow.getAttribute('data-version-type');
+                        
+                        // Store in sessionStorage
+                        sessionStorage.setItem('selectedApp', appName);
+                        sessionStorage.setItem('selectedVersion', version);
+                        sessionStorage.setItem('selectedVersionType', versionType);
+                    }
+                    
+                    window.location.href = 'wireframe-modal-step1.html';
+                }
+            });
+
+            // Prevent parent row checkboxes from affecting the button
+            document.querySelectorAll('.app-parent input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('change', function(e) {
+                    e.stopPropagation();
+                });
+            });
+
+            // Add version button handler
+            const addVersionBtn = document.getElementById('add-version-btn');
+            if (addVersionBtn) {
+                addVersionBtn.addEventListener('click', function() {
+                    window.location.href = 'wireframe-modal-upload.html';
+                });
+            }
+        });
+    </script>
+</body>
+</html>

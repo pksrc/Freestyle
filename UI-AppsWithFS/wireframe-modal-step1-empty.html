@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publish New Version - No Workflows Found</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="wireframe-styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <div class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                    <rect width="24" height="24" fill="#7C4DFF" rx="4"/>
+                </svg>
+                <span>UEM</span>
+            </div>
+            <select class="header-dropdown">
+                <option>Product Engineering</option>
+            </select>
+        </div>
+        <div class="header-right">
+            <button class="header-btn">Add</button>
+            <button class="icon-btn">🔍</button>
+            <button class="icon-btn">🔔</button>
+            <button class="icon-btn">⭐</button>
+            <button class="icon-btn">❓</button>
+            <div class="user-menu">pk</div>
+            <button class="icon-btn">⋮⋮⋮</button>
+        </div>
+    </header>
+
+    <!-- Modal Overlay -->
+    <div class="modal-overlay">
+        <div class="modal-dialog">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <div>
+                    <h2 class="modal-title">Publish New App Version</h2>
+                    <div class="modal-subtitle">Microsoft Teams version 2.5.8</div>
+                </div>
+                <button class="modal-close" data-action="close" aria-label="Close">×</button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <div class="empty-state">
+                    <div class="empty-state-icon">📋</div>
+                    <h3 class="empty-state-title">No Workflows Reference This App</h3>
+                    <p class="empty-state-description">
+                        This application version is not currently used in any Freestyle workflows.<br>
+                        You can publish the new version without affecting any workflow assignments.
+                    </p>
+                </div>
+
+                <div class="info-section">
+                    <span class="info-icon">ℹ️</span>
+                    <div class="info-content">
+                        The new app version will be available for standalone assignments and can be added to workflows in the future.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="wireframe-navigation.js"></script>
+</body>
+</html>

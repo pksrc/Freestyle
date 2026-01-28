@@ -1,0 +1,35 @@
+{
+    "Comment": "",
+    "StartAt": "Install 7-Zip 9.20 (x64 edition) Latest available StepId:4dacc25a-ef92-4704-acf1-a3235b87fc43",
+    "Version": "2",
+    "States": {
+        "Install 7-Zip 9.20 (x64 edition) Latest available StepId:4dacc25a-ef92-4704-acf1-a3235b87fc43": {
+            "Type": "Task",
+            "Resource": "ws1:activity:Windows10.InstallApplication",
+            "Parameters": {
+                "ApplicationUUID": "b3432529-83c9-4e48-8cae-6fae006e9b29",
+                "ProductCode": "{23170F69-40C1-2702-0938-000001000000}",
+                "PackageIdentifier": "{23170F69-40C1-2702-0000-000004000000}",
+                "Version": "9.38.00.0",
+                "AdditionalProperties": {
+                    "application_source_type": "INTERNAL",
+                    "application_type": "Internal"
+                },
+                "IsRequiredApp": false,
+                "IsExactVersion": false
+            },
+            "TimeoutSeconds": 1200,
+            "Retry": [
+                {
+                    "ErrorEquals": [
+                        "States.ALL"
+                    ],
+                    "IntervalSeconds": 300,
+                    "MaxAttempts": 1,
+                    "BackoffRate": 1.0
+                }
+            ],
+            "End": true
+        }
+    }
+}

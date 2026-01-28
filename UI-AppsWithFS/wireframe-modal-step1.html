@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publish New Version - Impacted Workflows</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="wireframe-styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <div class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                    <rect width="24" height="24" fill="#7C4DFF" rx="4"/>
+                </svg>
+                <span>UEM</span>
+            </div>
+            <select class="header-dropdown">
+                <option>Product Engineering</option>
+            </select>
+        </div>
+        <div class="header-right">
+            <button class="header-btn">Add</button>
+            <button class="icon-btn">🔍</button>
+            <button class="icon-btn">🔔</button>
+            <button class="icon-btn">⭐</button>
+            <button class="icon-btn">❓</button>
+            <div class="user-menu">pk</div>
+            <button class="icon-btn">⋮⋮⋮</button>
+        </div>
+    </header>
+
+    <!-- Modal Overlay -->
+    <div class="modal-overlay">
+        <div class="modal-dialog">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <div>
+                    <h2 class="modal-title">Workflows Impacted by App Update</h2>
+                    <div class="modal-subtitle">7-Zip version 23.01 → 7 workflows will be affected</div>
+                </div>
+                <button class="modal-close" data-action="close" aria-label="Close">×</button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <div class="info-section">
+                    <span class="info-icon">ℹ️</span>
+                    <div class="info-content">
+                        The following workflows reference this application. Choose how you want the new version to affect devices targeted by these workflows.
+                    </div>
+                </div>
+
+                <div class="workflow-list">
+                    <table class="workflow-table">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="select-all-workflows"></th>
+                                <th>Workflow Name</th>
+                                <th>Version</th>
+                                <th>Type</th>
+                                <th>Version Mode</th>
+                                <th>Assigned Devices</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="checkbox" class="workflow-checkbox" checked></td>
+                                <td>Desktop Onboarding - Standard</td>
+                                <td>v3.2</td>
+                                <td><span class="workflow-badge onboarding">Onboarding</span></td>
+                                <td><span class="workflow-badge latest">Latest Version</span></td>
+                                <td>1,248</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="workflow-checkbox" checked></td>
+                                <td>Software Update - Q1 2026</td>
+                                <td>v2.1</td>
+                                <td><span class="workflow-badge regular">Regular</span></td>
+                                <td><span class="workflow-badge latest">Latest Version</span></td>
+                                <td>842</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="workflow-checkbox" checked></td>
+                                <td>Finance Department Setup</td>
+                                <td>v1.5</td>
+                                <td><span class="workflow-badge onboarding">Onboarding</span></td>
+                                <td><span class="workflow-badge specific">Specific (v22.01)</span></td>
+                                <td>356</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="workflow-checkbox" checked></td>
+                                <td>Engineering Workstation Config</td>
+                                <td>v4.0</td>
+                                <td><span class="workflow-badge regular">Regular</span></td>
+                                <td><span class="workflow-badge latest">Latest Version</span></td>
+                                <td>512</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="workflow-checkbox" checked></td>
+                                <td>Remote Worker Initial Setup</td>
+                                <td>v2.8</td>
+                                <td><span class="workflow-badge onboarding">Onboarding</span></td>
+                                <td><span class="workflow-badge latest">Latest Version</span></td>
+                                <td>1,890</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="workflow-checkbox" checked></td>
+                                <td>Security Compliance Update</td>
+                                <td>v1.2</td>
+                                <td><span class="workflow-badge regular">Regular</span></td>
+                                <td><span class="workflow-badge specific">Specific (v21.07)</span></td>
+                                <td>2,145</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="workflow-checkbox" checked></td>
+                                <td>Contractor Device Provisioning</td>
+                                <td>v1.0</td>
+                                <td><span class="workflow-badge onboarding">Onboarding</span></td>
+                                <td><span class="workflow-badge latest">Latest Version</span></td>
+                                <td>234</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Update Method Selection -->
+                <div style="margin-top: 24px;">
+                    <label style="display: block; font-weight: 600; margin-bottom: 8px; font-size: 14px;">Update Method</label>
+                    <div style="position: relative; display: inline-block; width: 100%;">
+                        <select id="update-method" class="filter-btn" style="width: 100%; padding: 12px; font-size: 14px; cursor: pointer;">
+                            <option value="">Select an update method...</option>
+                            <option value="publish-workflows" data-tooltip="Create and publish new versions of all impacted workflows with the updated app. The entire workflow will re-run on devices, reapplying all steps including scripts, profiles, and applications.">Publish New Workflow Versions</option>
+                            <option value="update-app-only" data-tooltip="Update only the application on devices without creating new workflow versions. No workflow steps will re-run — only the app will be updated using the app deployment engine.">Update App Only on Devices</option>
+                            <option value="do-nothing" data-tooltip="Do not update the app on workflow-assigned devices. Workflows will continue using the current app version. You can manually update workflows or trigger this flow later from the app details page.">Do Nothing for Workflow Assignments</option>
+                        </select>
+                        <span class="tooltip-icon" id="tooltip-icon" style="position: absolute; right: 35px; top: 50%; transform: translateY(-50%); color: #0078d4; cursor: help; font-size: 18px;">ℹ️</span>
+                    </div>
+                    <div id="method-description" style="margin-top: 8px; font-size: 12px; color: #666; line-height: 1.5; display: none;"></div>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="window.location.href='wireframe-index.html'">Cancel</button>
+                <button class="btn btn-primary" data-navigate="wireframe-modal-step2.html">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="wireframe-navigation.js"></script>
+    <script src="workflow-data.js"></script>
+    <script>
+        // Display the selected app version from sessionStorage
+        document.addEventListener('DOMContentLoaded', function() {
+            const appName = sessionStorage.getItem('selectedApp') || '7-Zip';
+            const version = sessionStorage.getItem('selectedVersion') || '23.01';
+            const versionType = sessionStorage.getItem('selectedVersionType') || 'latest';
+            
+            // DEBUG: Log the values being used
+            console.log('=== Workflow Impact Debug ===');
+            console.log('App:', appName);
+            console.log('Version:', version);
+            console.log('Version Type:', versionType);
+            
+            // Get workflows for this app and version
+            const workflows = getWorkflowsForVersion(appName, versionType, version);
+            console.log('Workflows found:', workflows.length);
+            console.log('Workflow details:', workflows);
+            
+            // Update the modal subtitle
+            const subtitle = document.querySelector('.modal-subtitle');
+            const selectAllCheckbox = document.getElementById('select-all-workflows');
+            const workflowTableBody = document.querySelector('.workflow-table tbody');
+            const workflowList = document.querySelector('.workflow-list');
+            const nextBtn = document.querySelector('[data-navigate="wireframe-modal-step2.html"]');
+            
+            // Function to render workflows
+            function renderWorkflows() {
+                console.log('Clearing existing rows...');
+                workflowTableBody.innerHTML = '';
+                
+                if (workflows.length === 0) {
+                    console.log('No workflows found - showing empty state');
+                    // Show empty state message
+                    workflowList.innerHTML = `
+                        <div class="info-section" style="background: #fff3cd; border-color: #ffc107;">
+                            <span class="info-icon">⚠️</span>
+                            <div class="info-content" style="color: #856404;">
+                                <strong>No workflows reference this version.</strong><br>
+                                This version (${appName} ${version}) is not currently used in any workflows.
+                            </div>
+                        </div>
+                    `;
+                    nextBtn.disabled = true;
+                    return;
+                }
+                
+                console.log('Rendering', workflows.length, 'workflow rows...');
+                // Render workflows
+                workflows.forEach((wf, index) => {
+                    console.log(`Rendering workflow ${index + 1}:`, wf.name);
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td><input type="checkbox" class="workflow-checkbox" checked></td>
+                        <td>${wf.name}</td>
+                        <td>${wf.version}</td>
+                        <td><span class="workflow-badge ${wf.type.toLowerCase()}">${wf.type}</span></td>
+                        <td><span class="workflow-badge ${wf.versionMode.includes('Latest') ? 'latest' : 'specific'}">${wf.versionMode}</span></td>
+                        <td>${wf.devices.toLocaleString()}</td>
+                    `;
+                    workflowTableBody.appendChild(row);
+                });
+                
+                console.log('Workflow rendering complete. Total rows in tbody:', workflowTableBody.children.length);
+                
+                // Re-attach event listeners
+                attachWorkflowCheckboxListeners();
+            }
+            
+            // Function to attach checkbox listeners
+            function attachWorkflowCheckboxListeners() {
+                const workflowCheckboxes = document.querySelectorAll('.workflow-checkbox');
+                
+                workflowCheckboxes.forEach(checkbox => {
+                    checkbox.addEventListener('change', function() {
+                        const allChecked = Array.from(workflowCheckboxes).every(cb => cb.checked);
+                        const someChecked = Array.from(workflowCheckboxes).some(cb => cb.checked);
+                        selectAllCheckbox.checked = allChecked;
+                        selectAllCheckbox.indeterminate = someChecked && !allChecked;
+                        updateSubtitle();
+                    });
+                });
+            }
+            
+            // Render workflows on page load
+            renderWorkflows();
+            
+            // If workflows exist, set up subtitle and event handlers
+            if (workflows.length > 0) {
+                
+                function updateSubtitle() {
+                    const workflowCheckboxes = document.querySelectorAll('.workflow-checkbox');
+                    const checkedCount = Array.from(workflowCheckboxes).filter(cb => cb.checked).length;
+                    const totalCount = workflowCheckboxes.length;
+                    if (subtitle) {
+                        subtitle.textContent = `${appName} version ${version} → ${checkedCount} of ${totalCount} workflows selected`;
+                    }
+                }
+                
+                // Initial update
+                updateSubtitle();
+                
+                // Select all functionality
+                selectAllCheckbox.addEventListener('change', function() {
+                    const workflowCheckboxes = document.querySelectorAll('.workflow-checkbox');
+                    workflowCheckboxes.forEach(cb => cb.checked = this.checked);
+                    updateSubtitle();
+                });
+                
+                // Store selected workflows count in sessionStorage when next is clicked
+                nextBtn.addEventListener('click', function() {
+                    const workflowCheckboxes = document.querySelectorAll('.workflow-checkbox');
+                    const checkedCount = Array.from(workflowCheckboxes).filter(cb => cb.checked).length;
+                    sessionStorage.setItem('selectedWorkflowCount', checkedCount);
+                });
+            }
+            
+            // Handle update method selection
+            const updateMethodSelect = document.getElementById('update-method');
+            const methodDescription = document.getElementById('method-description');
+            const tooltipIcon = document.getElementById('tooltip-icon');
+            
+            const methodDescriptions = {
+                'publish-workflows': 'Create and publish new versions of all impacted workflows with the updated app. The entire workflow will re-run on devices, reapplying all steps including scripts, profiles, and applications.',
+                'update-app-only': 'Update only the application on devices without creating new workflow versions. No workflow steps will re-run — only the app will be updated using the app deployment engine.',
+                'do-nothing': 'Do not update the app on workflow-assigned devices. Workflows will continue using the current app version. You can manually update workflows or trigger this flow later from the app details page.'
+            };
+            
+            updateMethodSelect.addEventListener('change', function() {
+                const selectedValue = this.value;
+                
+                if (selectedValue) {
+                    methodDescription.textContent = methodDescriptions[selectedValue];
+                    methodDescription.style.display = 'block';
+                    
+                    // Store selection in sessionStorage
+                    sessionStorage.setItem('selectedMethod', selectedValue);
+                    sessionStorage.setItem('selectedMethodText', this.options[this.selectedIndex].text);
+                } else {
+                    methodDescription.style.display = 'none';
+                }
+                
+                // Enable next button only if workflows exist, at least one is selected, and method is chosen
+                if (workflows.length > 0) {
+                    const workflowCheckboxes = document.querySelectorAll('.workflow-checkbox');
+                    const checkedCount = Array.from(workflowCheckboxes).filter(cb => cb.checked).length;
+                    nextBtn.disabled = checkedCount === 0 || !selectedValue;
+                }
+            });
+            
+            // Show tooltip on hover
+            tooltipIcon.addEventListener('mouseenter', function() {
+                const selectedOption = updateMethodSelect.options[updateMethodSelect.selectedIndex];
+                const tooltip = selectedOption.getAttribute('data-tooltip');
+                
+                if (tooltip && updateMethodSelect.value) {
+                    const tooltipEl = document.createElement('div');
+                    tooltipEl.className = 'tooltip-box';
+                    tooltipEl.textContent = tooltip;
+                    tooltipEl.style.cssText = 'position: absolute; right: 0; top: 100%; margin-top: 8px; background: #333; color: white; padding: 12px; border-radius: 4px; font-size: 12px; line-height: 1.5; max-width: 350px; z-index: 1000; box-shadow: 0 2px 8px rgba(0,0,0,0.2);';
+                    this.appendChild(tooltipEl);
+                }
+            });
+            
+            tooltipIcon.addEventListener('mouseleave', function() {
+                const tooltip = this.querySelector('.tooltip-box');
+                if (tooltip) {
+                    tooltip.remove();
+                }
+            });
+            
+            // Disable next button initially
+            nextBtn.disabled = true;
+        });
+    </script>
+</body>
+</html>

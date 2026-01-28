@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Application Version</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="wireframe-styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <div class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                    <rect width="24" height="24" fill="#7C4DFF" rx="4"/>
+                </svg>
+                <span>UEM</span>
+            </div>
+            <select class="header-dropdown">
+                <option>Product Engineering</option>
+            </select>
+        </div>
+        <div class="header-right">
+            <button class="header-btn">Add</button>
+            <button class="icon-btn">🔍</button>
+            <button class="icon-btn">🔔</button>
+            <button class="icon-btn">⭐</button>
+            <button class="icon-btn">❓</button>
+            <div class="user-menu">pk</div>
+            <button class="icon-btn">⋮⋮⋮</button>
+        </div>
+    </header>
+
+    <!-- Modal Overlay -->
+    <div class="modal-overlay">
+        <div class="modal-dialog" style="max-width: 600px;">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <div>
+                    <h2 class="modal-title">Add New Application Version</h2>
+                    <div class="modal-subtitle">Upload a new version of an existing application</div>
+                </div>
+                <button class="modal-close" data-action="close" aria-label="Close">×</button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <!-- Application Selection -->
+                <div style="margin-bottom: 24px;">
+                    <label style="display: block; font-weight: 600; margin-bottom: 8px; font-size: 14px;">Select Application <span style="color: #d32f2f;">*</span></label>
+                    <select id="app-select" class="filter-btn" style="width: 100%; padding: 12px; font-size: 14px; cursor: pointer;">
+                        <option value="">Choose an application...</option>
+                        <option value="7-Zip">7-Zip</option>
+                        <option value="1Password">1Password</option>
+                        <option value="Adobe Reader">Adobe Reader</option>
+                        <option value="Google Chrome">Google Chrome</option>
+                        <option value="Microsoft Teams">Microsoft Teams</option>
+                    </select>
+                </div>
+
+                <!-- Version Number -->
+                <div style="margin-bottom: 24px;">
+                    <label style="display: block; font-weight: 600; margin-bottom: 8px; font-size: 14px;">Version Number <span style="color: #d32f2f;">*</span></label>
+                    <input type="text" id="version-input" placeholder="e.g., 24.00" style="width: 100%; padding: 12px; font-size: 14px; border: 1px solid #ccc; border-radius: 4px;">
+                    <div style="font-size: 12px; color: #666; margin-top: 4px;">Enter the version number for this release</div>
+                </div>
+
+                <!-- File Upload -->
+                <div style="margin-bottom: 24px;">
+                    <label style="display: block; font-weight: 600; margin-bottom: 8px; font-size: 14px;">Application Package <span style="color: #d32f2f;">*</span></label>
+                    <div style="border: 2px dashed #ccc; border-radius: 4px; padding: 32px; text-align: center; background: #f9f9f9; cursor: pointer;" id="file-drop-zone">
+                        <div style="font-size: 48px; margin-bottom: 12px;">📦</div>
+                        <div style="font-size: 14px; color: #333; margin-bottom: 8px;">
+                            <strong>Drop your file here or click to browse</strong>
+                        </div>
+                        <div style="font-size: 12px; color: #666;">
+                            Supported formats: .msi, .exe, .zip, .pkg
+                        </div>
+                        <input type="file" id="file-input" style="display: none;" accept=".msi,.exe,.zip,.pkg">
+                    </div>
+                    <div id="file-info" style="margin-top: 12px; font-size: 13px; color: #333; display: none;">
+                        <span style="color: #4caf50;">✓</span> <span id="file-name"></span> (<span id="file-size"></span>)
+                    </div>
+                </div>
+
+                <!-- Release Notes -->
+                <div style="margin-bottom: 24px;">
+                    <label style="display: block; font-weight: 600; margin-bottom: 8px; font-size: 14px;">Release Notes</label>
+                    <textarea id="release-notes" placeholder="Enter release notes for this version..." style="width: 100%; padding: 12px; font-size: 14px; border: 1px solid #ccc; border-radius: 4px; min-height: 100px; font-family: inherit;"></textarea>
+                </div>
+
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="window.location.href='wireframe-index.html'">Cancel</button>
+                <button class="btn btn-primary" id="upload-btn" disabled>Upload & Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="wireframe-navigation.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const appSelect = document.getElementById('app-select');
+            const versionInput = document.getElementById('version-input');
+            const fileInput = document.getElementById('file-input');
+            const fileDropZone = document.getElementById('file-drop-zone');
+            const fileInfo = document.getElementById('file-info');
+            const fileName = document.getElementById('file-name');
+            const fileSize = document.getElementById('file-size');
+            const uploadBtn = document.getElementById('upload-btn');
+            const releaseNotes = document.getElementById('release-notes');
+
+            let selectedFile = null;
+
+            // Pre-fill for demo purposes
+            setTimeout(() => {
+                appSelect.value = '7-Zip';
+                versionInput.value = '24.00';
+                releaseNotes.value = 'New features:\n- Improved compression ratio\n- Performance optimizations\n- Security updates\n- Bug fixes';
+                validateForm();
+            }, 300);
+
+            // File drop zone click
+            fileDropZone.addEventListener('click', () => {
+                fileInput.click();
+            });
+
+            // File input change
+            fileInput.addEventListener('change', function() {
+                if (this.files.length > 0) {
+                    selectedFile = this.files[0];
+                    showFileInfo(selectedFile);
+                    validateForm();
+                }
+            });
+
+            // Drag and drop handlers
+            fileDropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                fileDropZone.style.borderColor = '#0078d4';
+                fileDropZone.style.background = '#e3f2fd';
+            });
+
+            fileDropZone.addEventListener('dragleave', (e) => {
+                e.preventDefault();
+                fileDropZone.style.borderColor = '#ccc';
+                fileDropZone.style.background = '#f9f9f9';
+            });
+
+            fileDropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                fileDropZone.style.borderColor = '#ccc';
+                fileDropZone.style.background = '#f9f9f9';
+                
+                if (e.dataTransfer.files.length > 0) {
+                    selectedFile = e.dataTransfer.files[0];
+                    fileInput.files = e.dataTransfer.files;
+                    showFileInfo(selectedFile);
+                    validateForm();
+                }
+            });
+
+            function showFileInfo(file) {
+                fileName.textContent = file.name;
+                fileSize.textContent = formatFileSize(file.size);
+                fileInfo.style.display = 'block';
+                fileDropZone.style.borderColor = '#4caf50';
+            }
+
+            function formatFileSize(bytes) {
+                if (bytes < 1024) return bytes + ' B';
+                if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+                if (bytes < 1024 * 1024 * 1024) return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+                return (bytes / (1024 * 1024 * 1024)).toFixed(1) + ' GB';
+            }
+
+            // Validate form
+            function validateForm() {
+                const isValid = appSelect.value && versionInput.value && selectedFile;
+                uploadBtn.disabled = !isValid;
+            }
+
+            // Form change listeners
+            appSelect.addEventListener('change', validateForm);
+            versionInput.addEventListener('input', validateForm);
+
+            // Simulate file upload for demo
+            setTimeout(() => {
+                // Create a fake file for demo
+                const demoFile = new File(['demo content'], '7-Zip-24.00-x64.msi', { type: 'application/x-msi' });
+                selectedFile = demoFile;
+                showFileInfo(demoFile);
+                validateForm();
+            }, 500);
+
+            // Upload button handler
+            uploadBtn.addEventListener('click', function() {
+                if (!this.disabled) {
+                    // Store data in sessionStorage
+                    sessionStorage.setItem('selectedApp', appSelect.value);
+                    sessionStorage.setItem('selectedVersion', versionInput.value);
+                    // Default to 'latest' since the checkbox was removed
+                    sessionStorage.setItem('selectedVersionType', 'latest');
+                    sessionStorage.setItem('uploadedFileName', selectedFile.name);
+                    sessionStorage.setItem('uploadedFileSize', formatFileSize(selectedFile.size));
+                    sessionStorage.setItem('releaseNotes', releaseNotes.value);
+
+                    // Navigate to success page
+                    window.location.href = 'wireframe-modal-upload-success.html';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

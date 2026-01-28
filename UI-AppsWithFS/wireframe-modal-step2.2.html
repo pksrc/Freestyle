@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publish New Version - Success</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="wireframe-styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <div class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                    <rect width="24" height="24" fill="#7C4DFF" rx="4"/>
+                </svg>
+                <span>UEM</span>
+            </div>
+            <select class="header-dropdown">
+                <option>Product Engineering</option>
+            </select>
+        </div>
+        <div class="header-right">
+            <button class="header-btn">Add</button>
+            <button class="icon-btn">🔍</button>
+            <button class="icon-btn">🔔</button>
+            <button class="icon-btn">⭐</button>
+            <button class="icon-btn">❓</button>
+            <div class="user-menu">pk</div>
+            <button class="icon-btn">⋮⋮⋮</button>
+        </div>
+    </header>
+
+    <!-- Modal Overlay -->
+    <div class="modal-overlay">
+        <div class="modal-dialog">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <div>
+                    <h2 class="modal-title">Update Initiated Successfully</h2>
+                </div>
+                <button class="modal-close" data-action="close" aria-label="Close">×</button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <div class="success-content">
+                    <div class="success-icon">✓</div>
+                    
+                    <h3 class="success-title">App Update Deployed</h3>
+                    <p class="success-message">
+                        7-Zip version 23.01 is now being deployed to workflow-assigned devices. 
+                        The app will be updated without re-running the entire workflows.
+                    </p>
+
+                    <div class="success-stats">
+                        <div class="success-stat">
+                            <div class="success-stat-value">7</div>
+                            <div class="success-stat-label">Workflows</div>
+                        </div>
+                        <div class="success-stat">
+                            <div class="success-stat-value">7,227</div>
+                            <div class="success-stat-label">Devices</div>
+                        </div>
+                    </div>
+
+                    <div class="success-links">
+                        <a href="#" class="success-link">📊 View Deployment Status</a>
+                        <a href="#" class="success-link">📋 View Workflow Activity</a>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <span class="info-icon">ℹ️</span>
+                    <div class="info-content">
+                        Devices will receive the update based on their assignment schedules. 
+                        You can monitor progress from the Deployment Status page.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-action="close">Done</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="wireframe-navigation.js"></script>
+</body>
+</html>

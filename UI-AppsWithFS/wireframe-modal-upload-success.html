@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Version Upload Successful</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="wireframe-styles.css">
+    <style>
+        .upload-animation {
+            animation: slideUp 0.4s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes scaleIn {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .success-message {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .success-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .success-subtitle {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .upload-details {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: #666;
+            font-size: 13px;
+        }
+
+        .detail-value {
+            color: #333;
+            font-size: 13px;
+            text-align: right;
+            max-width: 60%;
+        }
+
+        .workflow-impact-box {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+
+        .workflow-impact-title {
+            font-weight: 600;
+            color: #856404;
+            margin-bottom: 8px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .workflow-impact-text {
+            color: #856404;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #e0e0e0;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4caf50 0%, #45a049 100%);
+            width: 0%;
+            animation: progressFill 1.5s ease-out forwards;
+        }
+
+        @keyframes progressFill {
+            to {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <div class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                    <rect width="24" height="24" fill="#7C4DFF" rx="4"/>
+                </svg>
+                <span>UEM</span>
+            </div>
+            <select class="header-dropdown">
+                <option>Product Engineering</option>
+            </select>
+        </div>
+        <div class="header-right">
+            <button class="header-btn">Add</button>
+            <button class="icon-btn">🔍</button>
+            <button class="icon-btn">🔔</button>
+            <button class="icon-btn">⭐</button>
+            <button class="icon-btn">❓</button>
+            <div class="user-menu">pk</div>
+            <button class="icon-btn">⋮⋮⋮</button>
+        </div>
+    </header>
+
+    <!-- Modal Overlay -->
+    <div class="modal-overlay">
+        <div class="modal-dialog upload-animation" style="max-width: 650px;">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <div>
+                    <h2 class="modal-title">Version Upload Complete</h2>
+                    <div class="modal-subtitle">Application version has been successfully uploaded</div>
+                </div>
+                <button class="modal-close" data-action="close" aria-label="Close">×</button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <!-- Success Icon -->
+                <div class="success-icon">✓</div>
+
+                <!-- Success Message -->
+                <div class="success-message">
+                    <div class="success-title" id="success-title">7-Zip v24.00 Uploaded Successfully</div>
+                    <div class="success-subtitle">Your application version is now available in the system</div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+
+                <!-- Upload Details -->
+                <div class="upload-details">
+                    <div class="detail-row">
+                        <span class="detail-label">Application:</span>
+                        <span class="detail-value" id="detail-app">7-Zip</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Version:</span>
+                        <span class="detail-value" id="detail-version">24.00</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">File:</span>
+                        <span class="detail-value" id="detail-file">7-Zip-24.00-x64.msi</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Size:</span>
+                        <span class="detail-value" id="detail-size">1.8 MB</span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="detail-label">Uploaded By:</span>
+                        <span class="detail-value">pk</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Upload Time:</span>
+                        <span class="detail-value" id="detail-time">Jan 28, 2026 at 2:45 PM</span>
+                    </div>
+                </div>
+
+                <!-- Workflow Impact Notice -->
+                <div class="workflow-impact-box">
+                    <div class="workflow-impact-title">
+                        <span>⚠️</span>
+                        <span>Workflow Impact Detected</span>
+                    </div>
+                    <div class="workflow-impact-text">
+                        <strong id="workflow-count">7 workflows</strong> reference this application and may be affected by this version update. 
+                        Review and manage how these workflows should handle the new version.
+                    </div>
+                </div>
+
+                <!-- Release Notes -->
+                <div style="margin-bottom: 16px;">
+                    <div style="font-weight: 600; margin-bottom: 8px; font-size: 14px; color: #333;">Release Notes:</div>
+                    <div id="release-notes-display" style="background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 4px; padding: 12px; font-size: 13px; color: #666; line-height: 1.6; white-space: pre-wrap;">
+New features:
+- Improved compression ratio
+- Performance optimizations
+- Security updates
+- Bug fixes
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="return-to-list-btn">Return to App List</button>
+                <button class="btn btn-primary" id="manage-workflows-btn">Manage Workflow Impact</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="wireframe-navigation.js"></script>
+    <script src="workflow-data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get data from sessionStorage
+            const appName = sessionStorage.getItem('selectedApp') || '7-Zip';
+            const version = sessionStorage.getItem('selectedVersion') || '24.00';
+            const versionType = sessionStorage.getItem('selectedVersionType') || 'latest';
+            const fileName = sessionStorage.getItem('uploadedFileName') || '7-Zip-24.00-x64.msi';
+            const fileSize = sessionStorage.getItem('uploadedFileSize') || '1.8 MB';
+            const releaseNotes = sessionStorage.getItem('releaseNotes') || 'New features:\n- Improved compression ratio\n- Performance optimizations\n- Security updates\n- Bug fixes';
+
+            // Update UI with stored data
+            document.getElementById('success-title').textContent = `${appName} v${version} Uploaded Successfully`;
+            document.getElementById('detail-app').textContent = appName;
+            document.getElementById('detail-version').textContent = version;
+            document.getElementById('detail-file').textContent = fileName;
+            document.getElementById('detail-size').textContent = fileSize;
+            document.getElementById('release-notes-display').textContent = releaseNotes;
+
+            // Get current time
+            const now = new Date();
+            const timeString = now.toLocaleString('en-US', { 
+                month: 'short', 
+                day: 'numeric', 
+                year: 'numeric', 
+                hour: 'numeric', 
+                minute: '2-digit',
+                hour12: true 
+            });
+            document.getElementById('detail-time').textContent = timeString;
+
+            // Calculate workflow count
+            const workflows = getWorkflowsForVersion(appName, versionType, version);
+            const workflowCount = workflows.length;
+            document.getElementById('workflow-count').textContent = `${workflowCount} workflow${workflowCount !== 1 ? 's' : ''}`;
+
+            // Return to list button - set flag to show new version
+            const returnBtn = document.getElementById('return-to-list-btn');
+            returnBtn.addEventListener('click', function() {
+                // Set flag to indicate upload is complete
+                sessionStorage.setItem('uploadComplete', 'true');
+                sessionStorage.setItem('uploadedBy', 'pk');
+                window.location.href = 'wireframe-index.html';
+            });
+
+            // Manage workflows button
+            const manageBtn = document.getElementById('manage-workflows-btn');
+            manageBtn.addEventListener('click', function() {
+                // Data already in sessionStorage, just navigate
+                window.location.href = 'wireframe-modal-step1.html';
+            });
+        });
+    </script>
+</body>
+</html>
